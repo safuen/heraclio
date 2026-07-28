@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">Logotipo del catálogo de maquetas</title>
+  <desc id="desc">Monograma arquitectónico en tonos madera y pergamino</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#f4eadb" />
+      <stop offset="100%" stop-color="#e1d0bb" />
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="url(#bg)" />
+  <path d="M30 94h68" fill="none" stroke="#6e4b31" stroke-linecap="round" stroke-width="6" />
+  <path d="M40 94V47l24-16 24 16v47" fill="none" stroke="#513320" stroke-linejoin="round" stroke-width="6" />
+  <path d="M50 60h28" fill="none" stroke="#8d6739" stroke-linecap="round" stroke-width="5" />
+  <path d="M56 76h16" fill="none" stroke="#8d6739" stroke-linecap="round" stroke-width="5" />
+</svg>

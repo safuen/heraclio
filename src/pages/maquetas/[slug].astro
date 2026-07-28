@@ -1,0 +1,130 @@
+---
+import ComparisonPanel from "@/components/ComparisonPanel.astro";
+import MapEmbed from "@/components/MapEmbed.astro";
+import ResponsiveImage from "@/components/ResponsiveImage.astro";
+import RichText from "@/components/RichText.astro";
+import TechnicalData from "@/components/TechnicalData.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getAllMaquetas } from "@/lib/content";
+import { withBase } from "@/lib/path";
+import { buildMaquetaDescription, buildMaquetaSchema } from "@/lib/seo";
+
+export async function getStaticPaths() {
+  const maquetas = await getAllMaquetas();
+
+  return maquetas.map((maqueta) => ({
+    params: { slug: maqueta.slug },
+    props: { maqueta },
+  }));
+}
+
+const { maqueta } = Astro.props;
+
+const technicalItems = [
+  maqueta.dimensions ? { label: "Dimensiones", value: maqueta.dimensions } : undefined,
+  maqueta.scale ? { label: "Escala", value: maqueta.scale } : undefined,
+  maqueta.materials?.length ? { label: "Materiales", value: maqueta.materials.join(", ") } : undefined,
+  maqueta.constructionTime ? { label: "Tiempo de construcción", value: maqueta.constructionTime } : undefined,
+  maqueta.yearCreated ? { label: "Año de realización", value: maqueta.yearCreated } : undefined,
+].filter(Boolean);
+---
+
+<BaseLayout
+  title={maqueta.title}
+  description={buildMaquetaDescription(maqueta)}
+  image={maqueta.coverImage?.src}
+  structuredData={buildMaquetaSchema(maqueta)}
+>
+  <section class="mx-auto max-w-7xl px-4 pb-20 pt-12 sm:px-6 lg:px-8 lg:pt-16">
+    <div class="panel-surface rounded-[2.4rem] p-8 sm:p-10">
+      <div class="flex flex-col gap-8 xl:flex-row xl:items-end xl:justify-between">
+        <div>
+          <p class="eyebrow">Ficha individual</p>
+          <h1 class="mt-3 text-6xl leading-[0.95] text-[var(--color-wood-deep)]">{maqueta.title}</h1>
+          <p class="mt-4 text-lg leading-8 text-[rgba(33,26,22,0.8)]">{maqueta.summary}</p>
+        </div>
+
+        <dl class="grid gap-4 text-sm text-[rgba(33,26,22,0.72)] sm:grid-cols-2 xl:min-w-[24rem]">
+          <div>
+            <dt class="font-semibold uppercase tracking-[0.16em] text-[rgba(33,26,22,0.48)]">Localidad</dt>
+            <dd class="mt-2 text-base text-[var(--color-ink)]">{maqueta.municipality}</dd>
+          </div>
+          <div>
+            <dt class="font-semibold uppercase tracking-[0.16em] text-[rgba(33,26,22,0.48)]">Provincia</dt>
+            <dd class="mt-2 text-base text-[var(--color-ink)]">{maqueta.province}</dd>
+          </div>
+          <div>
+            <dt class="font-semibold uppercase tracking-[0.16em] text-[rgba(33,26,22,0.48)]">Tipo</dt>
+            <dd class="mt-2 text-base text-[var(--color-ink)]">{maqueta.buildingType}</dd>
+          </div>
+          <div>
+            <dt class="font-semibold uppercase tracking-[0.16em] text-[rgba(33,26,22,0.48)]">Lectura</dt>
+            <dd class="mt-2 text-base text-[var(--color-ink)]">{maqueta.readingTimeText}</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="mt-10 grid gap-10 xl:grid-cols-[1.1fr_0.9fr]">
+      <section class="panel-surface rounded-[2rem] p-6 sm:p-8">
+        <p class="eyebrow">Galería</p>
+        <h2 class="mt-2 text-4xl text-[var(--color-wood-deep)]">Fotografías disponibles</h2>
+        <p class="mt-3 text-sm leading-7 text-[rgba(33,26,22,0.76)]">Pulse cualquier imagen para verla a mayor tamaño en una pestaña nueva.</p>
+
+        {maqueta.galleryImages.length > 0 ? (
+          <div class="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            {maqueta.galleryImages.map((image) => (
+              <a class="image-frame overflow-hidden transition duration-300 hover:-translate-y-1" href={withBase(image.src)} target="_blank" rel="noreferrer">
+                <ResponsiveImage class="aspect-[4/3] object-cover" image={image} sizes="(min-width: 1280px) 25vw, (min-width: 640px) 45vw, 100vw" />
+              </a>
+            ))}
+          </div>
+        ) : (
+          <div class="placeholder-tile mt-8 min-h-[18rem] rounded-[1.8rem]">
+            <div>
+              <p class="eyebrow text-[rgba(255,244,230,0.72)]">Galería pendiente</p>
+              <p class="mt-3 max-w-md text-base leading-7 text-[rgba(255,247,238,0.84)]">
+                La ficha ya está preparada, pero la carpeta de imágenes todavía no se ha clasificado en el nuevo formato.
+              </p>
+            </div>
+          </div>
+        )}
+      </section>
+
+      <div class="space-y-10">
+        <TechnicalData items={technicalItems as Array<{ label: string; value: string | number }>} />
+
+        <section class="panel-surface rounded-[2rem] p-6 sm:p-8">
+          <p class="eyebrow">Historia</p>
+          <h2 class="mt-2 text-4xl text-[var(--color-wood-deep)]">Descripción de la obra</h2>
+          <div class="mt-6">
+            <RichText html={maqueta.html} />
+          </div>
+
+          {maqueta.originalBuildingHistory && (
+            <div class="mt-8 border-t border-[rgba(65,42,28,0.08)] pt-8">
+              <h3 class="text-3xl text-[var(--color-wood-deep)]">Historia del edificio</h3>
+              <p class="mt-4 text-sm leading-7 text-[rgba(33,26,22,0.78)]">{maqueta.originalBuildingHistory}</p>
+            </div>
+          )}
+        </section>
+      </div>
+    </div>
+
+    <div class="mt-10 space-y-10">
+      <ComparisonPanel
+        title={maqueta.title}
+        modelImage={maqueta.coverImage}
+        originalImage={maqueta.comparisonImage}
+        caption={maqueta.originalImageCaption}
+        source={maqueta.originalImageSource}
+      />
+
+      {maqueta.originalStillExists && maqueta.mapQuery && <MapEmbed query={maqueta.mapQuery} title={maqueta.title} />}
+    </div>
+
+    <div class="mt-10">
+      <a class="button-link button-secondary" href={withBase("/catalogo")}>Volver al catálogo</a>
+    </div>
+  </section>
+</BaseLayout>

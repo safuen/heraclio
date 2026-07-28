@@ -1,0 +1,42 @@
+---
+import type { ImageAsset } from "@/lib/types";
+
+import ResponsiveImage from "@/components/ResponsiveImage.astro";
+
+interface Props {
+  title: string;
+  modelImage?: ImageAsset;
+  originalImage?: ImageAsset;
+  caption?: string;
+  source?: string;
+}
+
+const { title, modelImage, originalImage, caption, source } = Astro.props;
+---
+
+{modelImage && originalImage && (
+  <section aria-labelledby="comparacion" class="panel-surface rounded-[2rem] p-6 sm:p-8">
+    <p class="eyebrow">Comparación</p>
+    <h2 id="comparacion" class="mt-2 text-4xl text-[var(--color-wood-deep)]">Maqueta y edificio original</h2>
+
+    <div class="mt-8 grid gap-6 lg:grid-cols-2">
+      <figure class="space-y-4">
+        <div class="image-frame">
+          <ResponsiveImage image={modelImage} sizes="(min-width: 1024px) 45vw, 100vw" />
+        </div>
+        <figcaption class="text-sm leading-7 text-[rgba(33,26,22,0.76)]">Izquierda: fotografía de la maqueta de {title}.</figcaption>
+      </figure>
+
+      <figure class="space-y-4">
+        <div class="image-frame">
+          <ResponsiveImage image={originalImage} sizes="(min-width: 1024px) 45vw, 100vw" />
+        </div>
+        <figcaption class="text-sm leading-7 text-[rgba(33,26,22,0.76)]">
+          Derecha: fotografía del edificio original.
+          {caption && ` ${caption}`}
+          {source && ` Fuente: ${source}.`}
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+)}

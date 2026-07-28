@@ -1,0 +1,23 @@
+---
+interface Props {
+  items: Array<{ label: string; value: string | number }>;
+}
+
+const { items } = Astro.props;
+---
+
+{items.length > 0 && (
+  <section aria-labelledby="datos-tecnicos" class="panel-surface rounded-[2rem] p-6 sm:p-8">
+    <p class="eyebrow">Datos técnicos</p>
+    <h2 id="datos-tecnicos" class="mt-2 text-4xl text-[var(--color-wood-deep)]">Ficha técnica disponible</h2>
+
+    <dl class="mt-8 grid gap-4 md:grid-cols-2">
+      {items.map((item) => (
+        <div class="rounded-[1.4rem] border border-[rgba(65,42,28,0.08)] bg-white/55 p-5">
+          <dt class="text-xs uppercase tracking-[0.16em] text-[rgba(33,26,22,0.54)]">{item.label}</dt>
+          <dd class="mt-2 text-lg font-semibold text-[var(--color-ink)]">{item.value}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+)}

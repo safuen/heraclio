@@ -1,0 +1,59 @@
+---
+import Footer from "@/components/Footer.astro";
+import Header from "@/components/Header.astro";
+import { withBase } from "@/lib/path";
+import { buildPageTitle } from "@/lib/seo";
+import siteConfig from "@/site.config";
+import "@/styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  structuredData?: Record<string, unknown> | Array<Record<string, unknown>>;
+}
+
+const {
+  title,
+  description = siteConfig.description,
+  image,
+  structuredData = [],
+} = Astro.props;
+
+const pageTitle = buildPageTitle(title);
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? `${siteConfig.url}${siteConfig.repositoryPath}/`).toString();
+const imageUrl = image ? new URL(image, Astro.site ?? `${siteConfig.url}${siteConfig.repositoryPath}/`).toString() : undefined;
+const schemaBlocks = Array.isArray(structuredData) ? structuredData : [structuredData];
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#513320" />
+    <link rel="icon" type="image/svg+xml" href={withBase("/logo.svg")} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={siteConfig.locale} />
+    <meta property="og:site_name" content={siteConfig.shortTitle} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    {imageUrl && <meta property="og:image" content={imageUrl} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    {imageUrl && <meta name="twitter:image" content={imageUrl} />}
+    {schemaBlocks.filter(Boolean).map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} />)}
+  </head>
+  <body class="page-shell antialiased">
+    <Header />
+    <main id="contenido">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

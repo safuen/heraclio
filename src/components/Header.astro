@@ -1,0 +1,44 @@
+---
+import { withBase, withoutBase } from "@/lib/path";
+import siteConfig from "@/site.config";
+
+const currentPath = withoutBase(Astro.url.pathname);
+
+const links = [
+  { href: withBase("/"), label: "Inicio", active: currentPath === "/" },
+  { href: withBase("/biografia"), label: "Biografía", active: currentPath.startsWith("/biografia") },
+  { href: withBase("/catalogo"), label: "Catálogo", active: currentPath.startsWith("/catalogo") || currentPath.startsWith("/maquetas") },
+];
+---
+
+<header class="sticky top-0 z-40 border-b border-[rgba(65,42,28,0.08)] bg-[rgba(248,242,235,0.88)] backdrop-blur-xl">
+  <a class="skip-link" href="#contenido">Saltar al contenido principal</a>
+  <div class="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-4 sm:px-6 lg:px-8">
+    <a class="flex items-center gap-4" href={withBase("/")} aria-label="Ir a la portada">
+      <img class="h-12 w-12 rounded-full border border-[rgba(81,51,32,0.16)] bg-white/60 p-2" src={withBase("/logo.svg")} alt="Logotipo del catálogo" />
+      <div>
+        <p class="font-serif text-2xl font-semibold text-[var(--color-wood-deep)]">Heraclio Rodríguez García</p>
+        <p class="text-sm uppercase tracking-[0.22em] text-[var(--color-accent)]">Maquetas de madera</p>
+      </div>
+    </a>
+
+    <nav aria-label="Principal">
+      <ul class="flex flex-wrap items-center gap-2 text-sm font-semibold text-[var(--color-ink)] sm:gap-3">
+        {links.map((link) => (
+          <li>
+            <a
+              class:list={[
+                "button-link px-4 py-2",
+                link.active ? "button-primary" : "button-secondary",
+              ]}
+              aria-current={link.active ? "page" : undefined}
+              href={link.href}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>

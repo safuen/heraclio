@@ -1,0 +1,34 @@
+{
+  "name": "catalogo-heraclio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "seed:legacy": "python scripts/seed_legacy_content.py --copy-media",
+    "download:facebook": "python scripts/download_facebook_albums.py",
+    "sync:media": "node scripts/sync-legacy-media.mjs",
+    "optimize:images": "node scripts/optimize-images.mjs",
+    "create:maqueta": "node scripts/create-maqueta.mjs"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.0.0",
+    "@astrojs/sitemap": "^3.0.0",
+    "@tailwindcss/vite": "^4.0.0",
+    "astro": "^5.0.0",
+    "gray-matter": "^4.0.3",
+    "marked": "^13.0.2",
+    "reading-time": "^1.5.0",
+    "slugify": "^1.6.6",
+    "tailwindcss": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "sharp": "^0.33.5",
+    "typescript": "^5.6.3"
+  }
+}

@@ -1,0 +1,41 @@
+---
+import { withBase } from "@/lib/path";
+import type { ImageAsset } from "@/lib/types";
+
+interface Props {
+  image: ImageAsset;
+  class?: string;
+  loading?: "lazy" | "eager";
+  decoding?: "sync" | "async" | "auto";
+  sizes?: string;
+}
+
+const {
+  image,
+  class: className,
+  loading = "lazy",
+  decoding = "async",
+  sizes = "100vw",
+} = Astro.props;
+
+const avifSources = image.optimizedSources.filter((item) => item.src.endsWith(".avif"));
+const webpSources = image.optimizedSources.filter((item) => item.src.endsWith(".webp"));
+---
+
+<picture>
+  {avifSources.length > 0 && (
+    <source
+      type="image/avif"
+      srcset={avifSources.map((item) => `${withBase(item.src)} ${item.width}w`).join(", ")}
+      sizes={sizes}
+    />
+  )}
+  {webpSources.length > 0 && (
+    <source
+      type="image/webp"
+      srcset={webpSources.map((item) => `${withBase(item.src)} ${item.width}w`).join(", ")}
+      sizes={sizes}
+    />
+  )}
+  <img class={className} src={withBase(image.src)} alt={image.alt} loading={loading} decoding={decoding} />
+</picture>

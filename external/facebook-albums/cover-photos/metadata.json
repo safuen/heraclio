@@ -1,0 +1,19 @@
+{
+  "name": "Cover photos",
+  "url": "https://www.facebook.com/media/set/?set=a.509623811164334&type=3",
+  "expected": 2,
+  "found": 2,
+  "downloadedCandidates": 2,
+  "photos": [
+    {
+      "page": "https://www.facebook.com/photo/?fbid=509623844497664&set=a.509623811164334",
+      "image": "https://scontent-mad2-1.xx.fbcdn.net/v/t39.30808-6/480702367_1191276076332434_4428702632046041192_n.jpg?stp=dst-jpg_tt6&cstp=mx1067x600&ctp=s1067x600&_nc_cat=108&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=npnDaiTzMY8Q7kNvwG8KUup&_nc_oc=AdoJFnkdooP0nIJpX7U9Lv56UHJRuXqltC5AzBIs2tey5fIadPtWI_23xmIjWY8hpPk&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=sZkHlFgwY60V-YREP4XVAQ&_nc_ss=79289&oh=00_AQC-8sWCrdoZRD7uQ3-PMKjiEjPYaudzCv5MzvjXoTA6aQ&oe=6A6EAA89",
+      "alt": "No photo description available."
+    },
+    {
+      "page": "https://www.facebook.com/photo/?fbid=467962584023439&set=a.509623811164334",
+      "image": "https://scontent-mad1-1.xx.fbcdn.net/v/t1.6435-9/67308324_467962587356772_672533475588308992_n.jpg?stp=dst-jpg_tt6&cstp=mx1067x600&ctp=s1067x600&_nc_cat=102&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=iUBSqyjqPhkQ7kNvwEOYbH7&_nc_oc=AdrsX_7pTmNsdP1FPPxhhv9sNjixVO8tdt6xgzyZC3rgaudeRbN7DjoXR1b4oGY1ofM&_nc_zt=23&_nc_ht=scontent-mad1-1.xx&_nc_gid=vP1Y9Y1vLp9xYT-2-yatnA&_nc_ss=79289&oh=00_AQCWqcy1P_L2tvsXEwgc9pj5PIyh-7Y4w156iVYp8gdc0g&oe=6A904806",
+      "alt": "No photo description available."
+    }
+  ]
+}

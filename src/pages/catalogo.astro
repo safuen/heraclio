@@ -1,0 +1,139 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import MaquetaCard from "@/components/MaquetaCard.astro";
+import { getAllMaquetas, getCatalogueOptions } from "@/lib/content";
+import { buildCollectionSchema } from "@/lib/seo";
+
+const maquetas = await getAllMaquetas();
+const options = await getCatalogueOptions();
+---
+
+<BaseLayout title="Catálogo" description="Catálogo completo de maquetas, con búsqueda instantánea y filtros por municipio, tipo, año y provincia." structuredData={buildCollectionSchema(maquetas.length)}>
+  <section class="mx-auto max-w-7xl px-4 pb-20 pt-12 sm:px-6 lg:px-8 lg:pt-16">
+    <div class="flex flex-col gap-5">
+      <div>
+        <p class="eyebrow">Catálogo</p>
+        <h1 class="mt-2 text-6xl leading-[0.95] text-[var(--color-wood-deep)]">Todas las maquetas</h1>
+      </div>
+      <p class="max-w-3xl text-lg leading-8 text-[rgba(33,26,22,0.82)]">
+        La sección principal del sitio: tarjetas homogéneas, búsqueda inmediata y filtros pensados para localizar obras por municipio, tipología o fecha.
+      </p>
+    </div>
+
+    <div class="panel-surface mt-10 rounded-[2rem] p-6 sm:p-8">
+      <div class="grid gap-4 lg:grid-cols-[2fr_repeat(4,1fr)]">
+        <label>
+          <span class="mb-2 block text-sm font-semibold text-[rgba(33,26,22,0.72)]">Buscar</span>
+          <input class="filter-input" id="catalog-search" type="search" placeholder="Nombre, localidad, provincia o tipo de edificio" />
+        </label>
+
+        <label>
+          <span class="mb-2 block text-sm font-semibold text-[rgba(33,26,22,0.72)]">Municipio</span>
+          <select class="filter-select" id="filter-municipality">
+            <option value="">Todos</option>
+            {options.municipalities.map((item) => <option value={item}>{item}</option>)}
+          </select>
+        </label>
+
+        <label>
+          <span class="mb-2 block text-sm font-semibold text-[rgba(33,26,22,0.72)]">Tipo</span>
+          <select class="filter-select" id="filter-type">
+            <option value="">Todos</option>
+            {options.buildingTypes.map((item) => <option value={item}>{item}</option>)}
+          </select>
+        </label>
+
+        <label>
+          <span class="mb-2 block text-sm font-semibold text-[rgba(33,26,22,0.72)]">Año</span>
+          <select class="filter-select" id="filter-year">
+            <option value="">Todos</option>
+            {options.years.map((item) => <option value={item}>{item}</option>)}
+          </select>
+        </label>
+
+        <label>
+          <span class="mb-2 block text-sm font-semibold text-[rgba(33,26,22,0.72)]">Provincia</span>
+          <select class="filter-select" id="filter-province">
+            <option value="">Todas</option>
+            {options.provinces.map((item) => <option value={item}>{item}</option>)}
+          </select>
+        </label>
+      </div>
+
+      <div class="mt-5 flex flex-wrap items-center justify-between gap-4 text-sm text-[rgba(33,26,22,0.72)]">
+        <p><span id="catalog-visible-count">{maquetas.length}</span> resultados visibles</p>
+        <button class="button-link button-secondary" id="catalog-reset" type="button">Limpiar filtros</button>
+      </div>
+    </div>
+
+    <div class="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3" id="catalog-grid">
+      {maquetas.map((maqueta) => <MaquetaCard maqueta={maqueta} />)}
+    </div>
+
+    <p class="mt-10 hidden rounded-[1.4rem] border border-[rgba(65,42,28,0.08)] bg-white/60 px-5 py-4 text-sm text-[rgba(33,26,22,0.72)]" id="catalog-empty">
+      No hay maquetas que coincidan con los filtros actuales.
+    </p>
+  </section>
+
+  <script>
+    const cards = Array.from(document.querySelectorAll("[data-filter-card]"));
+    const searchInput = document.querySelector("#catalog-search");
+    const municipalitySelect = document.querySelector("#filter-municipality");
+    const typeSelect = document.querySelector("#filter-type");
+    const yearSelect = document.querySelector("#filter-year");
+    const provinceSelect = document.querySelector("#filter-province");
+    const visibleCount = document.querySelector("#catalog-visible-count");
+    const emptyState = document.querySelector("#catalog-empty");
+    const resetButton = document.querySelector("#catalog-reset");
+
+    const applyFilters = () => {
+      const query = searchInput instanceof HTMLInputElement ? searchInput.value.trim().toLowerCase() : "";
+      const municipality = municipalitySelect instanceof HTMLSelectElement ? municipalitySelect.value : "";
+      const type = typeSelect instanceof HTMLSelectElement ? typeSelect.value : "";
+      const year = yearSelect instanceof HTMLSelectElement ? yearSelect.value : "";
+      const province = provinceSelect instanceof HTMLSelectElement ? provinceSelect.value : "";
+
+      let total = 0;
+
+      cards.forEach((card) => {
+        if (!(card instanceof HTMLElement)) {
+          return;
+        }
+
+        const matchesQuery = !query || card.dataset.search?.includes(query);
+        const matchesMunicipality = !municipality || card.dataset.municipality === municipality;
+        const matchesType = !type || card.dataset.type === type;
+        const matchesYear = !year || card.dataset.year === year;
+        const matchesProvince = !province || card.dataset.province === province;
+        const visible = Boolean(matchesQuery && matchesMunicipality && matchesType && matchesYear && matchesProvince);
+
+        card.style.display = visible ? "" : "none";
+        if (visible) {
+          total += 1;
+        }
+      });
+
+      if (visibleCount) {
+        visibleCount.textContent = String(total);
+      }
+
+      if (emptyState instanceof HTMLElement) {
+        emptyState.classList.toggle("hidden", total !== 0);
+      }
+    };
+
+    [searchInput, municipalitySelect, typeSelect, yearSelect, provinceSelect].forEach((element) => {
+      element?.addEventListener("input", applyFilters);
+      element?.addEventListener("change", applyFilters);
+    });
+
+    resetButton?.addEventListener("click", () => {
+      if (searchInput instanceof HTMLInputElement) searchInput.value = "";
+      if (municipalitySelect instanceof HTMLSelectElement) municipalitySelect.value = "";
+      if (typeSelect instanceof HTMLSelectElement) typeSelect.value = "";
+      if (yearSelect instanceof HTMLSelectElement) yearSelect.value = "";
+      if (provinceSelect instanceof HTMLSelectElement) provinceSelect.value = "";
+      applyFilters();
+    });
+  </script>
+</BaseLayout>

@@ -1,0 +1,50 @@
+﻿[
+    {
+        "name":  "Tres Columnas",
+        "expected":  3,
+        "found":  3,
+        "downloadedCandidates":  3
+    },
+    {
+        "name":  "Ayuntamiento de Ciudad Rodrigo",
+        "expected":  8,
+        "found":  8,
+        "downloadedCandidates":  8
+    },
+    {
+        "name":  "Boada",
+        "expected":  15,
+        "found":  8,
+        "downloadedCandidates":  8
+    },
+    {
+        "name":  "Iglesia de Santa Olalla de Yeltes",
+        "expected":  11,
+        "found":  8,
+        "downloadedCandidates":  8
+    },
+    {
+        "name":  "Cover photos",
+        "expected":  2,
+        "found":  2,
+        "downloadedCandidates":  2
+    },
+    {
+        "name":  "Profile pictures",
+        "expected":  3,
+        "found":  4,
+        "downloadedCandidates":  4
+    },
+    {
+        "name":  "Mobile uploads",
+        "expected":  1,
+        "found":  1,
+        "downloadedCandidates":  1
+    },
+    {
+        "name":  "Photos",
+        "expected":  33,
+        "found":  8,
+        "downloadedCandidates":  8
+    }
+]

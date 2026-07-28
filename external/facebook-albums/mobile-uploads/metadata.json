@@ -1,0 +1,14 @@
+{
+  "name": "Mobile uploads",
+  "url": "https://www.facebook.com/media/set/?set=a.509623817831000&type=3",
+  "expected": 1,
+  "found": 1,
+  "downloadedCandidates": 1,
+  "photos": [
+    {
+      "page": "https://www.facebook.com/photo/?fbid=1082790675873957&set=a.509623817831000",
+      "image": "https://scontent-mad1-1.xx.fbcdn.net/v/t39.30808-6/469362747_1793238094829208_8767192262637391974_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x1536&ctp=s2048x1536&_nc_cat=102&ccb=1-7&_nc_sid=833d8c&_nc_ohc=qJ5I_Ve6aVQQ7kNvwEm8H7C&_nc_oc=Adpw3GsyqGziNdgmp43Iz-GYWlUKxD9WmkhjJW9PzEV2VQpMWygtnEvizfnIWly8RXE&_nc_zt=23&_nc_ht=scontent-mad1-1.xx&_nc_gid=-LnGXQRZ8O0OezzHSap-mw&_nc_ss=79289&oh=00_AQAXYtcwJleX3hqspagcseeiceQoV8lBF8BGEL4D4YDGjw&oe=6A6E91C5",
+      "alt": "No photo description available."
+    }
+  ]
+}

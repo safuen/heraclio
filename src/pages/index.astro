@@ -1,0 +1,130 @@
+---
+import MaquetaCard from "@/components/MaquetaCard.astro";
+import ResponsiveImage from "@/components/ResponsiveImage.astro";
+import StatsPanel from "@/components/StatsPanel.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getFeaturedMaquetas, getSiteStats } from "@/lib/content";
+import { buildCollectionSchema } from "@/lib/seo";
+import { withBase } from "@/lib/path";
+import siteConfig from "@/site.config";
+
+const featured = await getFeaturedMaquetas(6);
+const stats = await getSiteStats();
+const heroImage = featured[0]?.coverImage?.src;
+---
+
+<BaseLayout
+  title={siteConfig.title}
+  description={siteConfig.description}
+  image={heroImage}
+  structuredData={buildCollectionSchema(stats.total)}
+>
+  <section class="mx-auto grid max-w-7xl gap-10 px-4 pb-16 pt-10 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:px-8 lg:pt-16">
+    <div class="flex flex-col justify-center">
+      <p class="eyebrow">Catálogo permanente</p>
+      <h1 class="mt-4 max-w-4xl text-6xl leading-[0.95] text-[var(--color-wood-deep)] sm:text-7xl">
+        Artesanía en madera al servicio del patrimonio histórico salmantino
+      </h1>
+      <p class="mt-6 max-w-2xl text-lg leading-8 text-[rgba(33,26,22,0.82)]">
+        Una web concebida como archivo expositivo: sin comercio, sin ruido y con el foco puesto en la obra,
+        los lugares representados y el trabajo manual de Heraclio Rodríguez García.
+      </p>
+
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a class="button-link button-primary" href={withBase("/catalogo")}>Explorar el catálogo</a>
+        <a class="button-link button-secondary" href={withBase("/biografia")}>Leer la biografía</a>
+      </div>
+
+      <dl class="mt-10 grid gap-5 sm:grid-cols-3">
+        <div>
+          <dt class="text-sm uppercase tracking-[0.18em] text-[rgba(33,26,22,0.54)]">Enfoque</dt>
+          <dd class="mt-2 text-lg font-semibold text-[var(--color-ink)]">Museístico y documental</dd>
+        </div>
+        <div>
+          <dt class="text-sm uppercase tracking-[0.18em] text-[rgba(33,26,22,0.54)]">Contenido</dt>
+          <dd class="mt-2 text-lg font-semibold text-[var(--color-ink)]">Markdown + carpetas de imágenes</dd>
+        </div>
+        <div>
+          <dt class="text-sm uppercase tracking-[0.18em] text-[rgba(33,26,22,0.54)]">Publicación</dt>
+          <dd class="mt-2 text-lg font-semibold text-[var(--color-ink)]">GitHub Pages automático</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="panel-surface relative overflow-hidden rounded-[2.2rem] p-4 sm:p-5">
+      {heroImage ? (
+        <div class="image-frame h-full min-h-[28rem] overflow-hidden">
+          <ResponsiveImage
+            class="h-full min-h-[28rem] w-full object-cover"
+            image={featured[0].coverImage!}
+            loading="eager"
+            sizes="(min-width: 1024px) 40vw, 100vw"
+          />
+        </div>
+      ) : (
+        <div class="placeholder-tile min-h-[28rem] rounded-[1.7rem]">
+          <div>
+            <p class="eyebrow text-[rgba(255,244,230,0.72)]">Archivo visual</p>
+            <p class="mt-3 max-w-sm font-serif text-4xl">La colección se irá enriqueciendo automáticamente a medida que se incorporen nuevas fichas.</p>
+          </div>
+        </div>
+      )}
+
+      <div class="absolute inset-x-8 bottom-8 rounded-[1.6rem] border border-white/15 bg-[rgba(26,18,14,0.76)] p-5 text-[rgba(255,247,238,0.92)] backdrop-blur-lg">
+        <p class="eyebrow text-[rgba(255,214,168,0.8)]">Autor</p>
+        <h2 class="mt-2 font-serif text-3xl">Heraclio Rodríguez García</h2>
+        <p class="mt-3 text-sm leading-7 text-[rgba(255,247,238,0.84)]">
+          Vecino de La Fuente de San Esteban, comenzó esta afición en 2001 y ha dedicado buena parte de su tiempo a reproducir a mano edificios históricos y escenas vinculadas al patrimonio local.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <StatsPanel stats={stats} />
+  </section>
+
+  <section class="mx-auto mt-20 max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+      <div>
+        <p class="eyebrow">Selección destacada</p>
+        <h2 class="mt-2 text-5xl text-[var(--color-wood-deep)]">Obras representativas</h2>
+      </div>
+      <p class="max-w-2xl text-sm leading-7 text-[rgba(33,26,22,0.78)]">
+        La portada muestra una muestra breve del archivo. El catálogo completo mantiene la misma estructura aunque se añadan nuevas maquetas.
+      </p>
+    </div>
+
+    <div class="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+      {featured.map((maqueta) => <MaquetaCard maqueta={maqueta} />)}
+    </div>
+  </section>
+
+  <section class="mx-auto mt-20 max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
+    <div class="grid gap-6 lg:grid-cols-3">
+      <article class="panel-surface rounded-[1.8rem] p-6">
+        <p class="eyebrow">Trayectoria</p>
+        <h2 class="mt-2 text-3xl text-[var(--color-wood-deep)]">Más de dos décadas de trabajo constante</h2>
+        <p class="mt-4 text-sm leading-7 text-[rgba(33,26,22,0.78)]">
+          La colección recoge obras realizadas desde comienzos del siglo XXI, con especial atención a iglesias, plazas, fachadas y conjuntos monumentales de Salamanca y su provincia.
+        </p>
+      </article>
+
+      <article class="panel-surface rounded-[1.8rem] p-6">
+        <p class="eyebrow">Método</p>
+        <h2 class="mt-2 text-3xl text-[var(--color-wood-deep)]">Contenido separado del diseño</h2>
+        <p class="mt-4 text-sm leading-7 text-[rgba(33,26,22,0.78)]">
+          Cada maqueta vive en un solo archivo Markdown y una carpeta de fotografías. El sitio genera automáticamente tarjetas, enlaces internos, filtros y estadísticas.
+        </p>
+      </article>
+
+      <article class="panel-surface rounded-[1.8rem] p-6">
+        <p class="eyebrow">Finalidad</p>
+        <h2 class="mt-2 text-3xl text-[var(--color-wood-deep)]">Memoria visual y valor patrimonial</h2>
+        <p class="mt-4 text-sm leading-7 text-[rgba(33,26,22,0.78)]">
+          La web se plantea como catálogo estable para consulta, documentación y difusión cultural, no como escaparate comercial ni como tienda online.
+        </p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

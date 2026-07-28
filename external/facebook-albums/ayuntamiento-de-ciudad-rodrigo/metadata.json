@@ -1,0 +1,49 @@
+{
+  "name": "Ayuntamiento de Ciudad Rodrigo",
+  "url": "https://www.facebook.com/media/set/?set=a.470950047058026&type=3",
+  "expected": 8,
+  "found": 8,
+  "downloadedCandidates": 8,
+  "photos": [
+    {
+      "page": "https://www.facebook.com/photo/?fbid=470950233724674&set=a.470950047058026",
+      "image": "https://scontent-mad1-1.xx.fbcdn.net/v/t1.6435-9/67874170_470950240391340_9082130375173472256_n.jpg?stp=dst-jpg_tt6&cstp=mx1280x960&ctp=s1280x960&_nc_cat=103&ccb=1-7&_nc_sid=cf85f3&_nc_ohc=bjCWNzXAjqAQ7kNvwHain2f&_nc_oc=Adpgjp_izAvqSEhH8t2V8BDXsKOsJlMotbawbEg2A1nGjDvynG3odePGpXnVaEaue2w&_nc_zt=23&_nc_ht=scontent-mad1-1.xx&_nc_gid=OeapRIwBsyrrhcQWcDo1mg&_nc_ss=79289&oh=00_AQB1cPDZsOHnSwXnnpRxA2sAs1p8I6F-lYMgv-ozHGQybg&oe=6A904714",
+      "alt": "No photo description available."
+    },
+    {
+      "page": "https://www.facebook.com/photo/?fbid=470950397057991&set=a.470950047058026",
+      "image": "https://scontent-mad1-1.xx.fbcdn.net/v/t1.6435-9/67525056_470950403724657_1560040415212601344_n.jpg?stp=dst-jpg_tt6&cstp=mx1912x1066&ctp=s1912x1066&_nc_cat=106&ccb=1-7&_nc_sid=cf85f3&_nc_ohc=ExlEngOamkYQ7kNvwE306iE&_nc_oc=AdrinT4xQ4BoSHXKuao9Nd0ezc2WaKJwqb9KV87-6-_oDHDIpWKe3HmJxW5uPtW8nFY&_nc_zt=23&_nc_ht=scontent-mad1-1.xx&_nc_gid=1Jxiynk6P9tLWm7rg0zp2Q&_nc_ss=79289&oh=00_AQAofzgPN8pZuQNg_HrGT4KJuSJSk9BlHLiXvauU2tcOFQ&oe=6A905115",
+      "alt": "No photo description available."
+    },
+    {
+      "page": "https://www.facebook.com/photo/?fbid=470950590391305&set=a.470950047058026",
+      "image": "https://scontent-mad1-1.xx.fbcdn.net/v/t1.6435-9/67670286_470950593724638_2086405076997373952_n.jpg?stp=dst-jpg_tt6&cstp=mx1791x1075&ctp=s1791x1075&_nc_cat=102&ccb=1-7&_nc_sid=cf85f3&_nc_ohc=aH3jRjLfkysQ7kNvwE1bZNQ&_nc_oc=AdqXvMZjbetmMwnzvI0umh26y67yV6zX0p9ekUdY9Rv_rZz1waV1t5fKfiH5aNFrh_w&_nc_zt=23&_nc_ht=scontent-mad1-1.xx&_nc_gid=axmhrRyPqOViQXLX8sYilg&_nc_ss=79289&oh=00_AQDprgiv-QT7agpf6khGe98LPqUgjdvyARjbY0pweA5QXQ&oe=6A904F2E",
+      "alt": "No photo description available."
+    },
+    {
+      "page": "https://www.facebook.com/photo/?fbid=470953337057697&set=a.470950047058026",
+      "image": "https://scontent-mad2-1.xx.fbcdn.net/v/t1.6435-9/67373195_470953343724363_3670889654330064896_n.jpg?stp=dst-jpg_tt6&cstp=mx1100x651&ctp=s1100x651&_nc_cat=111&ccb=1-7&_nc_sid=cf85f3&_nc_ohc=zcBIN4QnFLUQ7kNvwHCffn2&_nc_oc=AdoJlKeOE_i5WxAHnGadTzGtk8ZmchI9RFBOSAfBkWSKiOIOKW08cuMBGg4oUoANt_s&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=7GsAJct18DeI90AQkegi-w&_nc_ss=79289&oh=00_AQCVYaGns1NGfZKRcgAmi108IGEcdg3oliqozLzzibbRiA&oe=6A905166",
+      "alt": "No photo description available."
+    },
+    {
+      "page": "https://www.facebook.com/photo/?fbid=1198669292259779&set=a.470950047058026",
+      "image": "https://scontent-mad1-1.xx.fbcdn.net/v/t39.30808-6/498317503_1268191655307542_5944233904440244563_n.jpg?stp=dst-jpg_tt6&cstp=mx1865x1536&ctp=s1865x1536&_nc_cat=103&ccb=1-7&_nc_sid=f727a1&_nc_ohc=VdkYVsK0cdEQ7kNvwHBIj2I&_nc_oc=Adpn0jwCmyAARdw2r9G2ZTs6WQoRHr8SHDemIzLkOseF4ifd8JhxzjtaXA5NptGxTtk&_nc_zt=23&_nc_ht=scontent-mad1-1.xx&_nc_gid=iuHdkPP2AawnxSWpthiaxQ&_nc_ss=79289&oh=00_AQDRnN1Be_xmdBo8MV9mAkO1TAhhUvzFE6_MhiGEOUc-Zg&oe=6A6E8C3B",
+      "alt": "No photo description available."
+    },
+    {
+      "page": "https://www.facebook.com/photo/?fbid=1198669315593110&set=a.470950047058026",
+      "image": "https://scontent-mad2-1.xx.fbcdn.net/v/t39.30808-6/497225921_1268191775307530_4556553320108161569_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx2048x1536&ctp=s2048x1536&_nc_cat=110&ccb=1-7&_nc_sid=f727a1&_nc_ohc=sjFrSbxTae4Q7kNvwH7PEVB&_nc_oc=Adrrb7D52HYVXX_K7IdZxEpiBbrYJG7mcT-3EUwsYrTnOaVnZ_QdRk7ZEjds9hVIW-Y&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=h4FLWuLHNFleglGuNFWkvA&_nc_ss=79289&oh=00_AQBWg6lWr3vVkcIDcMv6DLhHBlRblEhOwR27BOx6IJbBqQ&oe=6A6EAE1D",
+      "alt": "No photo description available."
+    },
+    {
+      "page": "https://www.facebook.com/photo/?fbid=1198669332259775&set=a.470950047058026",
+      "image": "https://scontent-mad1-1.xx.fbcdn.net/v/t39.30808-6/498324014_1268191651974209_6697780407029265047_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx2048x1536&ctp=s2048x1536&_nc_cat=107&ccb=1-7&_nc_sid=f727a1&_nc_ohc=RqLb9ZoCuSMQ7kNvwHDvsMF&_nc_oc=AdpuO196dpnB-vFKAlMqow34sn7eLP8FbsBxfGUvIsIUvKDW067SqK5vkEiU5BT2DEY&_nc_zt=23&_nc_ht=scontent-mad1-1.xx&_nc_gid=JX4uKoxwtwlF7PSC1ZxIKQ&_nc_ss=79289&oh=00_AQBs5z8fe043GhVT4JMQFBIhI_Ar2NdOYID6SOAzdcaIVw&oe=6A6EA39B",
+      "alt": "No photo description available."
+    },
+    {
+      "page": "https://www.facebook.com/photo/?fbid=1198669375593104&set=a.470950047058026",
+      "image": "https://scontent-mad1-1.xx.fbcdn.net/v/t39.30808-6/497929272_1268191648640876_930924474346406917_n.jpg?stp=dst-jpg_tt6&cstp=mx1860x1536&ctp=s1860x1536&_nc_cat=107&ccb=1-7&_nc_sid=f727a1&_nc_ohc=zUY_IePRgRkQ7kNvwHRgHVC&_nc_oc=Adqaj4HyuxXW9omEMtQtccnxuQsUwcchcWMuln-ywb-hcrsvSW8JCOzIPKk7hlZ4oyQ&_nc_zt=23&_nc_ht=scontent-mad1-1.xx&_nc_gid=JRFh-sh7_fQLYOpYR51bbQ&_nc_ss=79289&oh=00_AQDeTWzZBMNhT0Sm0m9mwTFOw7LUW9o7bHRvuz9lQ7CdeQ&oe=6A6EAE3E",
+      "alt": "No photo description available."
+    }
+  ]
+}
