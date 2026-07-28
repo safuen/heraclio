@@ -389,5 +389,4 @@ Cuando incorpore una nueva maqueta, siga siempre este orden:
 3. Ejecutar `npm run optimize:images`.
 4. Revisar localmente con `npm run dev`.
 5. Hacer commit y push.
-
 Así evita romper enlaces, imágenes o metadatos.
