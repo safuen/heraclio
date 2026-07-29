@@ -8,6 +8,8 @@ const links = [
   { href: withBase("/"), label: "Inicio", active: currentPath === "/" },
   { href: withBase("/biografia"), label: "Biografía", active: currentPath.startsWith("/biografia") },
   { href: withBase("/catalogo"), label: "Catálogo", active: currentPath.startsWith("/catalogo") || currentPath.startsWith("/maquetas") },
+  { href: withBase("/inventario"), label: "Inventario", active: currentPath.startsWith("/inventario") },
+  { href: withBase("/noticias"), label: "Noticias", active: currentPath.startsWith("/noticias") },
 ];
 ---
 

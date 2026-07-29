@@ -1,0 +1,61 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { newsItems } from "@/lib/news";
+import { withBase } from "@/lib/path";
+
+const items = [...newsItems].sort((left, right) => right.year - left.year || left.title.localeCompare(right.title, "es", { sensitivity: "base" }));
+---
+
+<BaseLayout
+  title="Noticias"
+  description="Apartado de noticias y difusion publica relacionado con la coleccion de maquetas."
+>
+  <section class="mx-auto max-w-7xl px-4 pb-20 pt-12 sm:px-6 lg:px-8 lg:pt-16">
+    <div class="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+      <div>
+        <p class="eyebrow">Noticias</p>
+        <h1 class="mt-2 text-6xl leading-[0.95] text-[var(--color-wood-deep)]">Noticias y difusion</h1>
+      </div>
+      <p class="max-w-2xl text-sm leading-7 text-[rgba(33,26,22,0.78)]">
+        Reune hitos publicos, carteleria y referencias documentales asociadas a la actividad expositiva y a la difusion de la coleccion.
+      </p>
+    </div>
+
+    <div class="mt-10 grid gap-6 xl:grid-cols-3">
+      {items.map((item) => (
+        <article class="panel-surface rounded-[1.8rem] p-6 sm:p-8">
+          {item.image && (
+            <a class="image-frame block overflow-hidden" href={withBase(item.image)} target="_blank" rel="noreferrer">
+              <img class="aspect-[4/5] w-full object-cover" src={withBase(item.image)} alt={item.title} loading="lazy" />
+            </a>
+          )}
+          <p class="eyebrow">{item.year}</p>
+          <h2 class="mt-3 text-4xl text-[var(--color-wood-deep)]">{item.title}</h2>
+          <p class="mt-4 text-sm leading-7 text-[rgba(33,26,22,0.82)]">{item.summary}</p>
+          <p class="mt-4 border-t border-[rgba(65,42,28,0.08)] pt-4 text-sm leading-7 text-[rgba(33,26,22,0.68)]">{item.note}</p>
+
+          {item.links && item.links.length > 0 && (
+            <div class="mt-5 flex flex-wrap gap-3">
+              {item.links.map((link) => (
+                <a class="button-link button-secondary" href={withBase(link.href)} target="_blank" rel="noreferrer">{link.label}</a>
+              ))}
+            </div>
+          )}
+        </article>
+      ))}
+    </div>
+
+    <div class="panel-surface mt-10 rounded-[2rem] p-6 sm:p-8">
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p class="eyebrow">Consulta relacionada</p>
+          <h2 class="mt-2 text-4xl text-[var(--color-wood-deep)]">Accesos directos</h2>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <a class="button-link button-primary" href={withBase("/inventario")}>Abrir inventario</a>
+          <a class="button-link button-secondary" href={withBase("/catalogo")}>Ir al catalogo</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
