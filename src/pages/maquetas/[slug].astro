@@ -91,6 +91,38 @@ const technicalItems = [
         )}
       </section>
 
+      {(maqueta.galleryVideos.length > 0 || maqueta.videoLinks.length > 0) && (
+        <section class="panel-surface rounded-[2rem] p-6 sm:p-8">
+          <p class="eyebrow">Vídeos</p>
+          <h2 class="mt-2 text-4xl text-[var(--color-wood-deep)]">Material audiovisual</h2>
+          <p class="mt-3 text-sm leading-7 text-[rgba(33,26,22,0.76)]">La ficha puede incluir vídeos guardados en la carpeta de la maqueta y enlaces externos de referencia.</p>
+
+          {maqueta.galleryVideos.length > 0 && (
+            <div class="mt-8 grid gap-6 xl:grid-cols-2">
+              {maqueta.galleryVideos.map((video) => (
+                <figure class="space-y-3 rounded-[1.4rem] border border-[rgba(65,42,28,0.08)] bg-white/70 p-4">
+                  <video class="w-full rounded-[1rem]" controls preload="metadata">
+                    <source src={withBase(video.src)} />
+                    Su navegador no puede reproducir este vídeo.
+                  </video>
+                  <figcaption class="text-sm leading-7 text-[rgba(33,26,22,0.72)]">{video.title}</figcaption>
+                </figure>
+              ))}
+            </div>
+          )}
+
+          {maqueta.videoLinks.length > 0 && (
+            <ul class="mt-6 space-y-3 text-sm leading-7 text-[rgba(33,26,22,0.78)]">
+              {maqueta.videoLinks.map((link) => (
+                <li>
+                  <a class="button-link button-secondary" href={link} target="_blank" rel="noreferrer">Abrir enlace externo</a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      )}
+
       <div class="space-y-10">
         <TechnicalData items={technicalItems as Array<{ label: string; value: string | number }>} />
 

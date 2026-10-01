@@ -11,6 +11,11 @@ export interface ImageAsset {
   optimizedSources: ImageSourceVariant[];
 }
 
+export interface VideoAsset {
+  src: string;
+  title: string;
+}
+
 export interface MaquetaFrontmatter {
   title: string;
   slug?: string;
@@ -28,6 +33,8 @@ export interface MaquetaFrontmatter {
   tags?: string[];
   heroImage?: string;
   gallery?: string[];
+  videos?: string[];
+  videoLinks?: string[];
   originalImage?: string;
   originalImageSource?: string;
   originalImageCaption?: string;
@@ -46,6 +53,8 @@ export interface Maqueta extends MaquetaFrontmatter {
   html: string;
   readingTimeText: string;
   galleryImages: ImageAsset[];
+  galleryVideos: VideoAsset[];
+  videoLinks: string[];
   coverImage?: ImageAsset;
   comparisonImage?: ImageAsset;
 }

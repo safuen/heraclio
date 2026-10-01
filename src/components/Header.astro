@@ -10,6 +10,7 @@ const links = [
   { href: withBase("/catalogo"), label: "Catálogo", active: currentPath.startsWith("/catalogo") || currentPath.startsWith("/maquetas") },
   { href: withBase("/inventario"), label: "Inventario", active: currentPath.startsWith("/inventario") },
   { href: withBase("/noticias"), label: "Noticias", active: currentPath.startsWith("/noticias") },
+  { href: siteConfig.social.facebook, label: "Facebook", active: false, external: true, highlighted: true },
 ];
 ---
 
@@ -31,10 +32,12 @@ const links = [
             <a
               class:list={[
                 "button-link px-4 py-2",
-                link.active ? "button-primary" : "button-secondary",
+                link.highlighted ? "button-primary" : link.active ? "button-primary" : "button-secondary",
               ]}
               aria-current={link.active ? "page" : undefined}
               href={link.href}
+              target={link.external ? "_blank" : undefined}
+              rel={link.external ? "noreferrer" : undefined}
             >
               {link.label}
             </a>

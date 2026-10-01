@@ -4,3 +4,5 @@ dist
 .DS_Store
 coverage
 public/generated
+public/imagenes/**/no-usar/
+src/pages/maquetas/Vcode.code-workspace

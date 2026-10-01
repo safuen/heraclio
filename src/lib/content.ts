@@ -14,6 +14,7 @@ import type {
   Maqueta,
   MaquetaFrontmatter,
   SiteStats,
+  VideoAsset,
 } from "@/lib/types";
 
 marked.setOptions({
@@ -28,6 +29,7 @@ const biographyPath = path.join(contentRoot, "biografia", "heraclio-rodriguez-ga
 const publicImagesRoot = path.join(projectRoot, "public", "imagenes");
 const generatedManifestPath = path.join(projectRoot, "public", "generated", "manifest.json");
 const imageExtensions = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif"]);
+const videoExtensions = new Set([".mp4", ".webm", ".mov", ".m4v"]);
 
 interface ImageManifestEntry {
   fallback: string;
@@ -42,6 +44,10 @@ let manifestPromise: Promise<ImageManifest> | null = null;
 
 function isImageFile(fileName: string) {
   return imageExtensions.has(path.extname(fileName).toLowerCase());
+}
+
+function isVideoFile(fileName: string) {
+  return videoExtensions.has(path.extname(fileName).toLowerCase());
 }
 
 function sortNaturally(values: string[]) {
@@ -75,21 +81,19 @@ async function readManifest() {
   return manifestPromise;
 }
 
-async function listImageFiles(folderPath: string) {
+async function listFolderFiles(folderPath: string) {
   try {
     const entries = await fs.readdir(folderPath, { withFileTypes: true });
 
     return sortNaturally(
-      entries
-        .filter((entry) => entry.isFile() && isImageFile(entry.name))
-        .map((entry) => entry.name),
+      entries.filter((entry) => entry.isFile()).map((entry) => entry.name),
     );
   } catch {
     return [];
   }
 }
 
-function toPublicImagePath(slug: string, fileName: string) {
+function toPublicAssetPath(slug: string, fileName: string) {
   if (fileName.startsWith("/")) {
     return fileName;
   }
@@ -109,7 +113,7 @@ function buildImageAsset(
   manifest: ImageManifest,
   kind: "gallery" | "cover" | "original",
 ) {
-  const resolvedPath = toPublicImagePath(slug, fileName);
+  const resolvedPath = toPublicAssetPath(slug, fileName);
   const manifestKey = `${slug}/${path.basename(fileName)}`;
   const manifestEntry = manifest[manifestKey];
 
@@ -126,13 +130,46 @@ function buildImageAsset(
   } satisfies ImageAsset;
 }
 
+function buildVideoAsset(title: string, slug: string, fileName: string, index: number) {
+  return {
+    src: toPublicAssetPath(slug, fileName),
+    title: `Vídeo de ${title}, clip ${index + 1}.`,
+  } satisfies VideoAsset;
+}
+
+async function readLinksFromFolder(folderPath: string) {
+  const folderFiles = await listFolderFiles(folderPath);
+  const textFiles = folderFiles.filter((fileName) => path.extname(fileName).toLowerCase() === ".txt");
+  const foundLinks: string[] = [];
+
+  for (const fileName of textFiles) {
+    try {
+      const contents = await fs.readFile(path.join(folderPath, fileName), "utf8");
+      const matches = contents.match(/https?:\/\/[^\s)]+/g) ?? [];
+
+      for (const match of matches) {
+        if (!foundLinks.includes(match)) {
+          foundLinks.push(match);
+        }
+      }
+    } catch {
+      continue;
+    }
+  }
+
+  return foundLinks;
+}
+
 async function parseMaqueta(filePath: string) {
   const manifest = await readManifest();
   const fileContents = await fs.readFile(filePath, "utf8");
   const { data, content } = matter(fileContents);
   const frontmatter = data as MaquetaFrontmatter;
   const slug = frontmatter.slug ?? path.basename(filePath, path.extname(filePath));
-  const folderImages = await listImageFiles(path.join(publicImagesRoot, slug));
+  const folderPath = path.join(publicImagesRoot, slug);
+  const folderFiles = await listFolderFiles(folderPath);
+  const folderImages = folderFiles.filter((fileName) => isImageFile(fileName));
+  const folderVideos = folderFiles.filter((fileName) => isVideoFile(fileName));
   const declaredGallery = asArray(frontmatter.gallery);
   const galleryFiles = (declaredGallery.length > 0 ? declaredGallery : folderImages).filter((fileName) => hasImageFile(fileName, folderImages));
   const originalFile = frontmatter.originalImage && hasImageFile(frontmatter.originalImage, folderImages) ? frontmatter.originalImage : undefined;
@@ -140,6 +177,11 @@ async function parseMaqueta(filePath: string) {
   const galleryImages = filteredGallery.map((fileName, index) =>
     buildImageAsset(frontmatter.title, slug, fileName, index, manifest, "gallery"),
   );
+  const declaredVideos = asArray(frontmatter.videos);
+  const videoFiles = (declaredVideos.length > 0 ? declaredVideos : folderVideos).filter((fileName) => folderVideos.includes(fileName));
+  const galleryVideos = videoFiles.map((fileName, index) => buildVideoAsset(frontmatter.title, slug, fileName, index));
+  const folderVideoLinks = await readLinksFromFolder(folderPath);
+  const videoLinks = [...new Set([...asArray(frontmatter.videoLinks), ...folderVideoLinks])];
 
   const declaredHero = frontmatter.heroImage && hasImageFile(frontmatter.heroImage, folderImages) ? frontmatter.heroImage : undefined;
   const coverFile = declaredHero ?? filteredGallery[0];
@@ -158,6 +200,8 @@ async function parseMaqueta(filePath: string) {
     html: ensureHtml(content),
     readingTimeText: readingTime(content).text,
     galleryImages,
+    galleryVideos,
+    videoLinks,
     coverImage,
     comparisonImage,
     materials: asArray(frontmatter.materials),

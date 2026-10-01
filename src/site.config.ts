@@ -17,7 +17,6 @@ const siteConfig = {
   province: "Salamanca",
   social: {
     facebook: "https://www.facebook.com/heracliorg/",
-    wixArchive: "https://safuen.wixsite.com/heraclio",
   },
 } as const;
 
